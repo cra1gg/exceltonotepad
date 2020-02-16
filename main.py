@@ -45,12 +45,12 @@ def split_batch(column_lengths, num_split):
                     new = batches.get(batch_num)
                 new.write("\n") 
 
-num_col = int(input("How many columns are there?"))
+num_col = int(input("How many columns are there?: "))
 column_lengths = [None] * num_col
 for i in range(num_col):
-    column_lengths[i] = input("What is the length of column:" + str(i) + "?")
+    column_lengths[i] = input("What is the length of column " + str(i) + "?: ")
 
-num_split = int(input("Does this need to be split into batches? If so, please enter the column number on which to split (Enter -1 for n/a)"))
+num_split = int(input("Does this need to be split into batches? If so, please enter the column number on which to split (Enter -1 for n/a): "))
 if (num_split == -1):
     no_split(column_lengths)
 else:
