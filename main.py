@@ -45,15 +45,26 @@ def split_batch(column_lengths, num_split):
                     new = batches.get(batch_num)
                 new.write("\n") 
 
-num_col = int(input("How many columns are there?: "))
-column_lengths = [None] * num_col
-for i in range(num_col):
-    column_lengths[i] = input("What is the length of column " + str(i) + "?: ")
+config = input("Config mode or input mode? Enter c for config or i for input? ")
+if config == "i":
+    num_col = int(input("How many columns are there?: "))
+    column_lengths = [None] * num_col
+    for i in range(num_col):
+        column_lengths[i] = input("What is the length of column " + str(i) + "?: ")
 
-num_split = int(input("Does this need to be split into batches? If so, please enter the column number on which to split (Enter -1 for n/a): "))
-if (num_split == -1):
-    no_split(column_lengths)
+    num_split = int(input("Does this need to be split into batches? If so, please enter the column number on which to split (Enter -1 for n/a): "))
+    if (num_split == -1):
+        no_split(column_lengths)
+    else:
+        split_batch(column_lengths, num_split)
 else:
-    split_batch(column_lengths, num_split)
-
-
+    config_file = open("config.txt", "r")
+    config_lines = config_file.read().splitlines()
+    column_lengths = config_lines[0].split()
+    for i in range(len(column_lengths)):
+        column_lengths[i] = int(column_lengths[i])
+    num_split = int(config_lines[1])
+    if (num_split == -1):
+        no_split(column_lengths)
+    else:
+        split_batch(column_lengths, num_split)
