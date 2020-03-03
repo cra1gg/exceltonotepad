@@ -9,12 +9,14 @@ def add_spaces(value, num):
         value = value + " "
     return value
 
-def no_split(column_lengths, retain_headers):
+def no_split(column_lengths, retain_headers, retain_footers):
     for filename in os.listdir(os.getcwd()):
         if filename.endswith(".xlsx"):  
             myfile = xlrd.open_workbook(filename)
             new_file = filename[:-5] + ".txt"
             new = open(new_file,"w")
+            header = ""
+            footer = ""
             mysheet = myfile.sheet_by_index(0)
             if (retain_headers == "yes"):
                 header = str(mysheet.cell_value(0, 0))
@@ -25,9 +27,14 @@ def no_split(column_lengths, retain_headers):
                     value = str(mysheet.cell_value(rownum, columnnum))
                     value = add_spaces(value, column_lengths[columnnum])
                     new.write(value)
+                    footer = str(mysheet.cell_value(rownum, 0))
                 new.write("\n") 
+            if (retain_footers == "yes"):
+                for key in batches:
+                    curr = batches.get(key)
+                    curr.write(footer)
 
-def split_batch(column_lengths, num_split, retain_headers):
+def split_batch(column_lengths, num_split, retain_headers, retain_footers):
     batches = {}
     for filename in os.listdir(os.getcwd()):
         if filename.endswith(".xlsx"):  
@@ -36,6 +43,7 @@ def split_batch(column_lengths, num_split, retain_headers):
             new = open(new_file,"w")
             mysheet = myfile.sheet_by_index(0)
             header = ""
+            footer = ""
             if (retain_headers == "yes"):
                 header = str(mysheet.cell_value(0, 0))
             for rownum in range(mysheet.nrows):
@@ -56,7 +64,12 @@ def split_batch(column_lengths, num_split, retain_headers):
                         value = str(mysheet.cell_value(rownum, columnnum))
                         value = add_spaces(value, column_lengths[columnnum])
                         new.write(value)
+                footer = str(mysheet.cell_value(rownum, 0))
                 new.write("\n") 
+            if (retain_footers == "yes"):
+                for key in batches:
+                    curr = batches.get(key)
+                    curr.write(footer)
 
 config = input("Config mode or input mode? Enter c for config or i for input? ")
 if config == "i":
@@ -67,19 +80,21 @@ if config == "i":
 
     num_split = int(input("Does this need to be split into batches? If so, please enter the column number on which to split (Enter -1 for n/a): "))
     retain_headers = input("Does this need to retain  headers and footers? (yes/no)")
+    retain_footers = input("Does this need to retain footers? (yes/no)")
     if (num_split == -1):
-        no_split(column_lengths, retain_headers)
+        no_split(column_lengths, retain_headers, retain_footers)
     else:
-        split_batch(column_lengths, num_split, retain_headers)
+        split_batch(column_lengths, num_split, retain_headers, retain_footers)
 else:
     config_file = open("config.txt", "r")
     config_lines = config_file.read().splitlines()
     column_lengths = config_lines[0].split()
     retain_headers = config_lines[2]
+    retain_footers = config_lines[3]
     for i in range(len(column_lengths)):
         column_lengths[i] = int(column_lengths[i])
     num_split = int(config_lines[1])
     if (num_split == -1):
-        no_split(column_lengths, retain_headers)
+        no_split(column_lengths, retain_headers, retain_footers)
     else:
-        split_batch(column_lengths, num_split, retain_headers)
+        split_batch(column_lengths, num_split, retain_headers, retain_footers)
