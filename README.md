@@ -11,5 +11,7 @@ There is an optional config mode in which the program will read from the config 
 ```
 a b c d ...
 p
+yes|no
+yes|no
 ```
-where x, y, z, and p are space delimited column lengths of columns A, B, C, and D in excel respectively. You can include an infinite number of columns. p is the column on which to split the data into separate files, leave this as -1 to ignore.
+where x, y, z, and p are space delimited column lengths of columns A, B, C, and D in excel respectively. You can include an infinite number of columns. p is the column on which to split the data into separate files, leave this as -1 to ignore. Lines 3 and 4 are for retaining headers and footers respectively. Specify each as "yes" or "no" to retain headers/footers or not.
