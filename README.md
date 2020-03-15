@@ -14,8 +14,8 @@ There is an optional config mode in which the program will read from the config 
 [Main]
 ColumnLengths = a b c ...
 SplitColumn = s
-RetainHeader = yes/no
-RetainFooter = yes/no
+RetainHeader = yes|no
+RetainFooter = yes|no
 ExtOrTxt = ext/txt
 ```
 `ColumnLengths` is the length of each column you would like to conver
