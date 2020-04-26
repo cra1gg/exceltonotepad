@@ -1,7 +1,7 @@
 # Excel to Notepad
-Small program which splits an excel file into a space delimited file that is human-readable even in default notepad applications
+This program  splits an excel file into a space delimited file that is human-readable even in default notepad applications
 
-This was originally written for my mother to assist her with her work but I figured it might be useful to someone else.
+This was originally written for my mother to assist her with her work but I figured it might be useful to someone else. You'll notice some of the purpose-built features of this application (such as the ext/txt option). Despite this, I tried to make the app as easy to use as possible for the public.
 
 # Usage:
 Clone the repo and put the excel files which you want to convert into the repo folder as the script and run the script using
@@ -17,6 +17,8 @@ SplitColumn = s
 RetainHeader = yes|no
 RetainFooter = yes|no
 ExtOrTxt = ext/txt
+CustomHeader = no|string
+CustomFooter = no|string
 ```
 `ColumnLengths` is the length of each column you would like to conver
 - `a`, `b` and `c` are space delimited column lengths of columns A, B, C, and D in excel respectively. 
@@ -34,3 +36,9 @@ ExtOrTxt = ext/txt
 
 `ExtOrTxt` is for whether you'd like the output saved as a `.ext` or `.txt` file. 
 - Specify `ext` or `txt` for `.ext` and `.txt` respectively
+
+`CustomHeader` is used if you'd like each output file have a custom header. NOTE: If you use this in conjunction with `RetainHeader`, the header that is already present in the source file will show up above the `CustomHeader`
+- Specify either `no` or any `string` you want to use as a header, example: `This is a header`
+
+`CustomFooter` is used if you'd like each output file have a custom footer. NOTE: If you use this in conjunction with `RetainFooter`, the footer that is already present in the source file will show up above the `CustomFooter`
+- Specify either `no` or any `string` you want to use as a header, example: `This is a footer`
