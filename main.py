@@ -71,9 +71,9 @@ def split_batch(column_lengths, num_split, retain_headers, retain_footers, ext_t
                         new.write(value)
                 else:
                     if ext_txt == "txt":
-                        new_file = "output/" + filename[:-5] + "-BATCH " + str(batch_num) + ".txt"
+                        new_file = "output/" + str(batch_num) + ".txt"
                     else:
-                        new_file = "output/" + filename[:-5] + "-BATCH " + str(batch_num) + ".ext"
+                        new_file = "output/" + str(batch_num) + ".ext"
                     batches[batch_num] = open(new_file,"w")
                     new = batches.get(batch_num)
                     if (retain_headers == "yes"):
